@@ -30,13 +30,14 @@ Thumbs.db
 .idea/
 
 # Reports, Scratch Scripts & Academic Raw Docs
-docs/
-scripts/
 *.docx
 *.pdf
 grafana_dashboard_import.json
 Hình*.png
+scratch/
 
 # Internal AI Agent instructions & Context
 .agent/
 context.md
+__pycache__/
+*.pyc

@@ -4,8 +4,8 @@
 **Cơ sở đào tạo:** Trường Đại học Công nghệ Thông tin & Truyền thông - Đại học Thái Nguyên (ICTU)  
 **Sinh viên thực hiện:** Phùng Thiên Trường  
 **Mã số sinh viên (MSSV):** DTC245200274  
-**Hạ tầng:** VPS Ubuntu Server  
-**Tên miền chính thức:** `https://hotel.noveratech.digital`  
+**Hạ tầng:** Localhost / Docker Desktop  
+**Truy cập chính:** `http://localhost:3001`  
 **Mạng Docker liên thông:** `novera_network`  
 
 ---
@@ -31,14 +31,14 @@ Dự án triển khai một hệ thống **Đặt phòng Khách sạn Chuẩn Do
 
 | Dịch vụ | Tên Container | Cổng Nội Bộ | Cổng Mở Host / Gateway | Chức Năng |
 | :--- | :--- | :--- | :--- | :--- |
-| **Nginx Ingress** | Host Nginx | 80/443 | `https://hotel.noveratech.digital/` | Cổng vào Ingress, Reverse Proxy & Security Hardening |
-| **Giao diện Khách & Admin** | `hotel-frontend` | 80 | `127.0.0.1:3001` | Ứng dụng React SPA (Vite + Tailwind CSS) |
-| **Backend REST API** | `hotel-backend` | 5000 | `127.0.0.1:5000` | REST API Node.js Express, metrics `/metrics` |
-| **Prometheus Server** | `hotel-prometheus` | 9090 | `127.0.0.1:9090` | Thu thập và lưu trữ time-series metrics |
-| **Grafana Dashboard** | `hotel-grafana` | 3000 | `127.0.0.1:3000` | Trực quan hóa chỉ số RED/USE và log stream |
-| **Grafana Loki** | `hotel-loki` | 3100 | `127.0.0.1:3100` | Hệ thống quản lý và lập chỉ mục log tập trung |
+| **Giao diện Khách & Admin** | `hotel-frontend` | 80 | `http://localhost:3001` | Ứng dụng React SPA (Vite + Tailwind CSS) |
+| **Backend REST API** | `hotel-backend` | 5000 | `http://localhost:5000` | REST API Node.js Express, metrics `/metrics` |
+| **Prometheus Server** | `hotel-prometheus` | 9090 | `http://localhost:9090` | Thu thập và lưu trữ time-series metrics |
+| **Grafana Dashboard** | `hotel-grafana` | 3000 | `http://localhost:3000` | Trực quan hóa chỉ số RED/USE và log stream |
+| **Grafana Loki** | `hotel-loki` | 3100 | `http://localhost:3100` | Hệ thống quản lý và lập chỉ mục log tập trung |
 | **Promtail Log Agent** | `hotel-promtail` | - | - | Agent đọc log từ Docker socket chuyển về Loki |
-| **PostgreSQL Database** | `ats-postgres` | 5432 | Mạng nội bộ `ats-postgres:5432` | CSDL lưu trữ `hotel_db` (Supabase compatible) |
+| **PostgreSQL Database** | `hotel-postgres` | 5432 | `localhost:5432` | CSDL lưu trữ `hotel_db` |
+| **Nginx Ingress (Tùy chọn)** | Host Nginx | 80/443 | `http://localhost` | Reverse Proxy & Security Hardening |
 
 ---
 
@@ -90,7 +90,7 @@ curl -s http://127.0.0.1:9090/api/v1/targets
 Cả 2 targets (`hotel-backend` và `prometheus`) đều ở trạng thái `UP`.
 
 ### 3. Kiểm tra Grafana Dashboard
-Truy cập qua URL: `https://hotel.noveratech.digital/grafana/`
+Truy cập qua URL: `http://localhost:3000/`
 - Tài khoản: `admin`
 - Mật khẩu: `AdminSecure2026!`
 - Dashboard sẵn có: **Novera Luxury Hotel - Giám Sát Toàn Diện** (thư mục: *Khách Sạn Novera*).
